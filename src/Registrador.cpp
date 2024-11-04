@@ -21,7 +21,7 @@ REGISTRADOR::REGISTRADOR(uint8_t _Data, uint8_t _Clk, uint8_t _Latch)
 
 void REGISTRADOR::clock()
 {
-  digitalWrite(srclkpin, HIGH);
+  digitalWrite(srclkpin, HIGH); //pulso clock
   delay(1);
   digitalWrite(srclkpin, LOW);
   delay(1);
@@ -37,24 +37,24 @@ void REGISTRADOR::store()
 
 void REGISTRADOR::serialToParallel()
 {
-  // Vamos agora enviar todos os 16 bits para os dois registradores em série
-  for (int i = 15; i >= 0; i--) // Percorre de 15 (MSB) até 0 (LSB)
+  //envia todos os 16 bits para os dois registradores em série
+  for (int i = 15; i >= 0; i--)
   {
-    digitalWrite(datapin, (dataRegister >> i) & 1); // Envia o bit mais significativo
-    clock(); // Pulso de clock para mover o dado para o próximo flip-flop
+    digitalWrite(datapin, (dataRegister >> i) & 1); // envia o bit mais significativo
+    clock(); // pulso de clock para mover o dado para o próximo flip-flop
   }
 }
 
 //métodos públicos
 
-void REGISTRADOR::sendToShiftRegister(uint16_t data) // Recebe um uint16_t
+void REGISTRADOR::sendToShiftRegister(uint16_t data) 
 {
-  dataRegister = data; // Armazena o valor de 16 bits no registrador
-  serialToParallel();  // Envia os 16 bits para os registradores em série
-  store();             // Armazena os dados nos registradores
+  dataRegister = data; // armazena o valor de 16 bits no registrador
+  serialToParallel();  // envia os 16 bits para os registradores em série
+  store();             // armazena os dados nos registradores
 }
 
 void REGISTRADOR::printData()
 {
-  Serial.println(dataRegister, BIN); // Imprime o valor do registrador em formato binário
+  Serial.println(dataRegister, BIN); // imprime o valor do registrador em formato binário
 }
