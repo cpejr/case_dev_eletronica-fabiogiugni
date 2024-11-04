@@ -10,7 +10,6 @@ class REGISTRADOR
     uint8_t rclkpin = 0;     // rclk (latch) pin
     uint16_t dataRegister = 0;
 
-    void initializePins();
     void clock();
     void store();
     void serialToParallel();

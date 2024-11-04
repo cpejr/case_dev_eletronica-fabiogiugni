@@ -7,12 +7,7 @@ REGISTRADOR::REGISTRADOR(uint8_t _Data, uint8_t _Clk, uint8_t _Latch)
   datapin = _Data;
   srclkpin = _Clk;
   rclkpin = _Latch;
-  initializePins();
-}
 
-//métodos privados
-void REGISTRADOR::initializePins()
-{
   pinMode(datapin, OUTPUT);
   pinMode(srclkpin, OUTPUT);
   pinMode(rclkpin, OUTPUT);
@@ -22,12 +17,14 @@ void REGISTRADOR::initializePins()
   digitalWrite(rclkpin, LOW);
 }
 
+//métodos privados
+
 void REGISTRADOR::clock()
 {
   digitalWrite(srclkpin, HIGH);
-  delayMicroseconds(500);
+  delay(1);
   digitalWrite(srclkpin, LOW);
-  delayMicroseconds(500);
+  delay(1);
 }
 
 void REGISTRADOR::store()
